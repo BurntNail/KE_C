@@ -12,5 +12,5 @@ typedef struct Matches {
     int count;
 } Matches;
 
-Matches findMatches (char* text, char* pattern);
-void MatchesToEBV (Matches matches, ExpandableBitVec* ebv, int total_size);
+int findMatches (char* text, char* pattern, Matches* out);
+int MatchesToEBV (Matches matches, ExpandableBitVec* ebv, int total_size);

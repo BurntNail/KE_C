@@ -2,18 +2,19 @@
 #include <stdlib.h>
 #include "Finder.h"
 
-Matches findMatches (char* text, char* pattern) {
+int FindMatches (char* text, char* pattern, Matches* out) {
     int text_length = strlen(text);
     int pattern_length = strlen(pattern);
 
     if (pattern_length == 0) {
-        Matches m;
-        m.count = 0;
-        m.matches = malloc(0);
-        return m;
+        out->count = 0;
+        out->matches = NULL;
     }
 
     Match* maxMatches = malloc(sizeof(Match) * ((text_length / pattern_length) + 1));
+    if (maxMatches == NULL) {
+        return EXIT_FAILURE;
+    }
     int matchesFound = 0;
 
     for (int i = 0; i < text_length - pattern_length; i++) {
@@ -39,6 +40,10 @@ Matches findMatches (char* text, char* pattern) {
     }
 
     Match* matches = malloc(sizeof(Match) * matchesFound);
+    if (matches == NULL) {
+        return EXIT_FAILURE;
+    }
+
     for (int i = 0; i < matchesFound; i++) {
         matches[i] = maxMatches[i];
     }
@@ -46,21 +51,25 @@ Matches findMatches (char* text, char* pattern) {
 
 
 
-    Matches m;
-    m.matches = matches;
-    m.count = matchesFound;
+    out->matches = matches;
+    out->count = matchesFound;
 
-    return m;
 }
 
-void MatchesToEBV (Matches matches, ExpandableBitVec* ebv, int total_size) {
-    ExtendToSize(ebv,total_size);
+int MatchesToEBV (Matches matches, ExpandableBitVec* ebv, int total_size) {
+    if (ExtendToSize(ebv,total_size) == EXIT_FAILURE) {
+        return EXIT_FAILURE;
+    }
 
     for (int i = 0; i < matches.count; i++) {
         Match m = matches.matches[i];
 
         for (int ebv_i = m.start; ebv_i <= m.end; ebv_i++) {
-            Set(ebv, ebv_i);
+            if (Set(ebv, ebv_i) == EXIT_FAILURE) {
+                return EXIT_SUCCESS;
+            }
         }
     }
+
+    return EXIT_SUCCESS;
 }

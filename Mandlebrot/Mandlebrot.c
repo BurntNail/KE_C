@@ -17,6 +17,10 @@ const int MAX_ITERS = 50;
 int main()
 {
     int *iters = malloc(sizeof(int) * WIDTH * HEIGHT);
+    if (iters == NULL) {
+        fprintf(stderr, "Error allocating iterators list.\n");
+        return EXIT_FAILURE;
+    }
 
     for (int y = 0; y < HEIGHT; y++)
     {
@@ -56,6 +60,10 @@ int main()
     float diff = (float)(max - min);
 
     char *s = malloc(sizeof(char) * (WIDTH + 1) * HEIGHT + 1);
+    if (s == NULL) {
+        fprintf(stderr, "Error allocating space for the string.\n");
+        return EXIT_FAILURE;
+    }
     int row_pos = 0;
     int string_i = 0;
     for (int i = 0; i < WIDTH * HEIGHT; i++)
@@ -89,4 +97,6 @@ int main()
 
     free(iters);
     free(s);
+
+    return EXIT_SUCCESS;
 }

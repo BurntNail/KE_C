@@ -7,9 +7,9 @@ typedef struct ExpandableBitVec {
     int* backing;
 } ExpandableBitVec;
 
-ExpandableBitVec EBV (int size);
-void ExtendToSize (ExpandableBitVec* self, int size);
-bool Index (ExpandableBitVec* self, int index);
-void Set (ExpandableBitVec* self, int index);
-void Unset (ExpandableBitVec* self, int index);
+int EBV (int size, ExpandableBitVec* out);
+int ExtendToSize (ExpandableBitVec* self, int size);
+int Index (ExpandableBitVec* self, int index, bool* out);
+int Set (ExpandableBitVec* self, int index);
+int Unset (ExpandableBitVec* self, int index);
 void Clear (ExpandableBitVec* self);
