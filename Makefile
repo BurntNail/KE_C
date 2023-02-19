@@ -1,8 +1,8 @@
 mandlebrotObject: Mandlebrot/Mandlebrot.c
+	mkdir -p Mandlebrot/target
 	gcc -g -Wall -Wextra -Wpedantic -c Mandlebrot/Mandlebrot.c -o Mandlebrot/target/Mandlebrot.o
 
 mandlebrot: mandlebrotObject
-	mkdir -p Mandlebrot/target
 	gcc -g Mandlebrot/target/Mandlebrot.o -o Mandlebrot/target/Mandlebrot
 
 minigrepObject: Minigrep/Minigrep.c Minigrep/ExpandableBitVec.c Minigrep/Finder.c
