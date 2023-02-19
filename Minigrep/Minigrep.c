@@ -35,7 +35,7 @@ int main (int argc, char** argv) {
 
         MatchesToEBV(m, &ebv, read);
 
-        for (size_t i = 0; i < read; i++) {
+        for (ssize_t i = 0; i < read; i++) {
             if (Index(&ebv, i)) {
                 printf("\x1B[32;1m%c\x1B[37m", line[i]);
             } else {
@@ -52,6 +52,8 @@ int main (int argc, char** argv) {
     fclose(fptr);
     if (line)
         free(line);
+
+    free(ebv.backing);
 
     return EXIT_SUCCESS;
 }
