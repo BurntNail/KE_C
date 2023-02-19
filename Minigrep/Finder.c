@@ -9,6 +9,7 @@ int FindMatches (char* text, char* pattern, Matches* out) {
     if (pattern_length == 0) {
         out->count = 0;
         out->matches = NULL;
+        return EXIT_SUCCESS;
     }
 
     Match* maxMatches = malloc(sizeof(Match) * ((text_length / pattern_length) + 1));
@@ -54,6 +55,7 @@ int FindMatches (char* text, char* pattern, Matches* out) {
     out->matches = matches;
     out->count = matchesFound;
 
+    return EXIT_SUCCESS;
 }
 
 int MatchesToEBV (Matches matches, ExpandableBitVec* ebv, int total_size) {

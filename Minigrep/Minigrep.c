@@ -39,7 +39,7 @@ int main (int argc, char** argv) {
 
     while ((read = getline(&line, &MAX_LINE_SIZE, fptr)) != -1) {
         Matches m;
-        if (findMatches(line, pattern, &m) == EXIT_FAILURE) {
+        if (FindMatches(line, pattern, &m) == EXIT_FAILURE) {
             fprintf(stderr, "Error allocating for matches.\n");
             return EXIT_FAILURE;
         }
@@ -52,7 +52,7 @@ int main (int argc, char** argv) {
         for (ssize_t i = 0; i < read; i++) {
             bool isHere = false;
             if (Index(&ebv, i, &isHere) == EXIT_FAILURE) {
-                fprintf("Error indexing ebv.\n");
+                fprintf(stderr, "Error indexing ebv.\n");
                 return EXIT_FAILURE;
             }
 
