@@ -57,7 +57,7 @@ int main (int argc, char** argv) {
             }
 
             if (isHere) {
-                printf("\x1B[32;1m%c\x1B[37m", line[i]);
+                printf("\033[32m%c\033[0m", line[i]);
             } else {
                 printf("%c", line[i]);
             }
